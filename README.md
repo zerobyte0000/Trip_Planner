@@ -1,96 +1,77 @@
-Trip Planner
-Travel Budget Planner (Flask Web App)
+# Trip Planner
 
-This is a Flask-based web application that helps users plan and manage travel budgets efficiently. The application allows users to create an account, set a trip budget, plan daily expenses, select destinations, and estimate overall travel costs.
+## Travel Budget Planner (Flask Web App)
 
-The system organizes trip planning by calculating expenses for food, accommodation, emergency funds, and travel duration, helping users stay within their budget.
+This is a **Flask-based web application** that helps users plan and manage travel budgets efficiently. The application allows users to create an account, set a trip budget, plan daily expenses, select destinations, and estimate overall travel costs.
 
-Features
-1. User Authentication
+The system organizes trip planning by calculating expenses for **food, accommodation, emergency funds, and travel duration**, helping users stay within their budget.
 
-Sign up and login functionality
+---
 
-Session-based authentication
+## Features
 
-Secure user data stored in JSON
+### 1. User Authentication
+- Sign up and login functionality  
+- Session-based authentication  
+- Secure user data stored in JSON  
 
-2. Budget Planning
+### 2. Budget Planning
+- Enter total trip budget  
+- Select trip start and end dates  
+- Set number of travel days  
 
-Enter total trip budget
-
-Select trip start and end dates
-
-Set number of travel days
-
-3. Expense Estimation
-
+### 3. Expense Estimation
 Calculate daily costs for:
-
-Food
-
-Accommodation
-
-Emergency funds
+- Food  
+- Accommodation  
+- Emergency funds  
 
 Additional features:
+- Automatic estimation of total trip cost  
+- Remaining budget calculation  
 
-Automatic estimation of total trip cost
+### 4. Travel Planning
+- Plan places to visit for each day  
+- Suggest transport options based on remaining budget  
 
-Remaining budget calculation
-
-4. Travel Planning
-
-Plan places to visit for each day
-
-Suggest transport options based on remaining budget
-
-5. Transport Planning
-
+### 5. Transport Planning
 Input travel details such as:
+- Starting place  
+- Destination  
+- Travel date  
+- Number of adults, seniors, and children  
 
-Starting place
+### 6. Hotel Booking (Prototype)
+- Choose number of rooms  
+- Select room type  
+- Manage number of guests  
+- Sample hotel options included  
 
-Destination
+### 7. Trip Summary
+- View all planned trip details in one place  
 
-Travel date
+---
 
-Number of adults, seniors, and children
+## Tech Stack
 
-6. Hotel Booking (Prototype)
+### Backend
+- Python  
+- Flask  
 
-Choose number of rooms
+### Frontend
+- HTML Templates (Jinja2)
 
-Select room type
+### Data Storage
+- JSON files  
 
-Manage number of guests
+### Session Management
+- Flask Sessions  
 
-Sample hotel options included
+---
 
-7. Trip Summary
+## Project Structure
 
-View all planned trip details in one place
-
-Tech Stack
-
-Backend
-
-Python
-
-Flask
-
-Frontend
-
-HTML Templates (Jinja2)
-
-Data Storage
-
-JSON files
-
-Session Management
-
-Flask Sessions
-
-Project Structure
+```
 project/
 │
 ├── app.py
@@ -107,24 +88,39 @@ project/
 │   ├── flight_train.html
 │   ├── hotel.html
 │   └── my_trip.html
-Future Improvements
+```
 
-Integrate real flight and train APIs
+---
 
-Connect to hotel booking APIs
+## Future Improvements
 
-Use database (MySQL/PostgreSQL) instead of JSON
+- Integrate real **flight and train APIs**
+- Connect to **hotel booking APIs**
+- Use **database (MySQL/PostgreSQL)** instead of JSON
+- Add **expense analytics and charts**
+- Implement **secure password hashing**
+- Improve **transport suggestions using AI logic**
 
-Add expense analytics and charts
+---
 
-Implement secure password hashing
+## How to Run
 
-Improve transport suggestions using AI logic
+### 1. Install Flask
 
-How to Run
-Install Flask
+```bash
 pip install flask
-Run the Application
+```
+
+### 2. Run the Application
+
+```bash
 python app.py
-Open in Browser
+```
+
+### 3. Open in Browser
+
+```
 http://127.0.0.1:5000
+```
+
+---
