@@ -6,7 +6,6 @@ This is a **Flask-based web application** that helps users plan and manage trave
 
 The system organizes trip planning by calculating expenses for **food, accommodation, emergency funds, and travel duration**, helping users stay within their budget.
 
----
 
 ## Features
 
@@ -50,7 +49,6 @@ Input travel details such as:
 ### 7. Trip Summary
 - View all planned trip details in one place  
 
----
 
 ## Tech Stack
 
@@ -67,7 +65,6 @@ Input travel details such as:
 ### Session Management
 - Flask Sessions  
 
----
 
 ## Project Structure
 
@@ -90,7 +87,6 @@ project/
 │   └── my_trip.html
 ```
 
----
 
 ## Future Improvements
 
@@ -101,7 +97,6 @@ project/
 - Implement **secure password hashing**
 - Improve **transport suggestions using AI logic**
 
----
 
 ## How to Run
 
@@ -122,5 +117,3 @@ python app.py
 ```
 http://127.0.0.1:5000
 ```
-
----
