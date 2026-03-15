@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Craft Your Daily Adventure</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Comfortaa', cursive;
+            background: linear-gradient(140deg, #fce4ec, #f3e5f5);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #555;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            text-align: left;
+        }
+        h1 {
+            color: #c2185b;
+            font-size: 2.8em;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+        }
+        h1::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -6px;
+            width: 50px;
+            height: 3px;
+            background-color: #f06292;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        h2 {
+            color: #c2185b;
+            font-size: 2em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f8bbd0;
+            padding-bottom: 8px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #777;
+            font-weight: bold;
+        }
+        input[type="number"],
+        input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 12px;
+            border: 1px solid #f48fb1;
+            border-radius: 8px;
+            font-size: 1em;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        input[type="number"]:focus,
+        input[type="text"]:focus {
+            border-color: #c2185b;
+            outline: none;
+            box-shadow: 0 0 8px rgba(194, 24, 91, 0.2);
+        }
+        input[type="submit"] {
+            background-color: #c2185b;
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        input[type="submit"]:hover {
+            background-color: #9a0036;
+            transform: translateY(-2px);
+        }
+        .day-plan {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #ffebee;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .day-plan label {
+            color: #c2185b;
+            margin-bottom: 5px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/ns5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="container">
+        <h1><i class="far fa-calendar-check"></i> Craft Your Daily Adventure</h1>
+        <form method="POST">
+            <label for="num_people"><i class="fas fa-users"></i> Number of People Traveling:</label><br>
+            <input type="number" id="num_people" name="num_people" required><br><br>
+
+            <h2><i class="fas fa-coins"></i> Estimated Daily Costs (Per Person)</h2>
+            <label for="food_per_day"><i class="fas fa-utensils"></i> Food:</label><br>
+            <input type="number" id="food_per_day" name="food_per_day" value="500" required><br><br>
+            <label for="stay_per_day"><i class="fas fa-bed"></i> Stay:</label><br>
+            <input type="number" id="stay_per_day" name="stay_per_day" value="1000" required><br><br>
+            <label for="emergency_per_day"><i class="fas fa-exclamation-triangle"></i> Emergency Fund:</label><br>
+            <input type="number" id="emergency_per_day" name="emergency_per_day" value="200" required><br><br>
+
+            <h2><i class="fas fa-map-marked-alt"></i> Visiting Places</h2>
+            {% for i in range(1, num_days + 1) %}
+            <div class="day-plan">
+                <label for="day_{{ i }}_place"><strong>Day {{ i }}:</strong></label><br>
+                <input type="text" id="day_{{ i }}_place" name="day_{{ i }}_place" placeholder="Activities or places for Day {{ i }}"><br><br>
+            </div>
+            {% endfor %}
+
+            <input type="submit" value="Review Your Plan"><i class="fas fa-chevron-right"></i>
+        </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.js" integrity="sha512-rPf6CbuxS3fJZPdjYOBFnY0boCnoeZHGv4tINyFc1KtJHntbOEWAh00rsohXBj0kWBnowx7JVpeDlRXxcF+h6g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>

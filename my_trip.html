@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Personalized Trip Overview</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(110deg, #ffccbc, #ffab91);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #444;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            text-align: left;
+        }
+        h1 {
+            color: #e65100;
+            font-size: 2.8em;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+        }
+        h1::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -6px;
+            width: 60px;
+            height: 3px;
+            background-color: #ff9800;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        h2 {
+            color: #e65100;
+            font-size: 2em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ffcc80;
+            padding-bottom: 8px;
+        }
+        p {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            color: #555;
+            line-height: 1.6;
+        }
+        strong {
+            color: #e65100;
+            font-weight: bold;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+        li {
+            background-color: #ffe0b2;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        a {
+            color: #e65100;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #f57c00;
+        }
+        .back-home {
+            text-align: center;
+            margin-top: 30px;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/ns5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-map-signs"></i> Your Trip Summary</h1>
+
+        {% if session['budget'] %}
+        <p><i class="fas fa-wallet"></i> <strong>Total Budget:</strong> {{ session['budget'] }}</p>
+        {% endif %}
+
+        {% if session['estimated_cost'] %}
+        <p><i class="fas fa-calculator"></i> <strong>Estimated Total Cost:</strong> {{ session['estimated_cost'] }}</p>
+        {% endif %}
+
+        {% if session['remaining_budget'] is not none %}
+        <p><i class="fas fa-money-bill-wave"></i> <strong>Remaining Budget:</strong> {{ session['remaining_budget'] }}</p>
+        {% endif %}
+
+        {% if session['start_date'] and session['end_date'] %}
+        <p><i class="far fa-calendar-alt"></i> <strong>Trip Dates:</strong> {{ session['start_date'] }} to {{ session['end_date'] }}</p>
+        <p><i class="fas fa-hourglass-half"></i> <strong>Number of Days:</strong> {{ session['num_days'] }}</p>
+        {% endif %}
+
+        {% if session['num_people'] %}
+        <p><i class="fas fa-users"></i> <strong>Number of Travelers:</strong> {{ session['num_people'] }}</p>
+        {% endif %}
+
+        {% if session['daily_plan'] %}
+        <h2><i class="fas fa-coins"></i> Budget Allocation (Per Person Per Day)</h2>
+        <ul>
+            <li><i class="fas fa-utensils"></i> <strong>Food:</strong> {{ session['daily_plan']['food'] }}</li>
+            <li><i class="fas fa-hotel"></i> <strong>Stay:</strong> {{ session['daily_plan']['stay'] }}</li>
+            <li><i class="fas fa-exclamation-triangle"></i> <strong>Emergency:</strong> {{ session['daily_plan']['emergency'] }}</li>
+        </ul>
+        {% endif %}
+
+        {% if session['visiting_places'] %}
+        <h2><i class="fas fa-location-arrow"></i> Daily Itinerary</h2>
+        <ul>
+            {% for i in range(session['num_days']) %}
+            <li><strong>Day {{ i + 1 }}:</strong> {{ session['visiting_places'][i] }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        {% if session['flight_train_details'] %}
+        <h2><i class="fas fa-train"></i><i class="fas fa-plane"></i> Travel Arrangements</h2>
+        <ul>
+            <li><i class="fas fa-map-marker-alt"></i> <strong>From:</strong> {{ session['flight_train_details']['start_place'] }}</li>
+            <li><i class="fas fa-flag-checkered"></i> <strong>To:</strong> {{ session['flight_train_details']['destination'] }}</li>
+            <li><i class="far fa-calendar-alt"></i> <strong>Departure Date:</strong> {{ session['flight_train_details']['travel_date'] }}</li>
+            <li><i class="fas fa-user"></i> <strong>Adults:</strong> {{ session['flight_train_details']['adults'] }}</li>
+            <li><i class="fas fa-user-tie"></i> <strong>Seniors:</strong> {{ session['flight_train_details']['seniors'] }}</li>
+            <li><i class="fas fa-child"></i> <strong>Children:</strong> {{ session['flight_train_details']['children'] }}</li>
+        </ul>
+        {% endif %}
+
+        {% if session['hotel_details'] %}
+        <h2><i class="fas fa-hotel"></i> Accommodation Details</h2>
+        <ul>
+            <li><i class="fas fa-hotel"></i> <strong>Selected Hotel:</strong> Luxury Inn</li>
+            <li><i class="fas fa-bed"></i> <strong>Number of Rooms:</strong> {{ session['hotel_details']['num_rooms'] }}</li>
+            <li><i class="fas fa-door-open"></i> <strong>Room Type:</strong> {{ session['hotel_details']['room_type'] }}</li>
+            <li><i class="fas fa-users"></i> <strong>Number of Guests:</strong> {{ session['hotel_details']['num_guests'] }}</li>
+        </ul>
+        {% endif %}
+        <p class="back-home"><a href="{{ url_for('home') }}"><i class="fas fa-arrow-left"></i> Back to Dashboard</a></p>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/ns5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Trip Awaits</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(45deg, #a1c4fd, #c2e9fb);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.92);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+        h1 {
+            color: #3f51b5;
+            font-size: 2.8em;
+            margin-bottom: 25px;
+            letter-spacing: 1.5px;
+            position: relative;
+            display: inline-block;
+        }
+        h1::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -8px;
+            width: 70px;
+            height: 4px;
+            background-color: #7986cb;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #555;
+        }
+        strong {
+            color: #3f51b5;
+            font-weight: bold;
+        }
+        h2 {
+            color: #3f51b5;
+            font-size: 2em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 12px;
+        }
+        li a {
+            display: inline-block;
+            padding: 12px 24px;
+            text-decoration: none;
+            background-color: #e3f2fd;
+            color: #3f51b5;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            font-weight: bold;
+        }
+        li a:hover {
+            background-color: #bbdefb;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, <strong>{{ session['username'] }}</strong>!</h1>
+        <p>Your Total Budget: <strong>{{ session.get('budget', 'N/A') }}</strong></p>
+        <p>Estimated Trip Cost: <strong>{{ session.get('estimated_cost', 'N/A') }}</strong></p>
+        <p>Remaining Budget: <strong>{{ session.get('remaining_budget', 'N/A') }}</strong></p>
+        <p>Consider this Transport: <strong>{{ session.get('transport_suggestion', 'N/A') }}</strong></p>
+
+        <h2>Explore Your Options</h2>
+        <ul>
+            <li><a href="{{ url_for('flight_train') }}"><i class="fas fa-plane-departure"></i> Book Flight/Train</a></li>
+            <li><a href="{{ url_for('hotel', destination='some_default_destination') }}"><i class="fas fa-hotel"></i> Book Hotel</a></li>
+            <li><a href="{{ url_for('my_trip') }}"><i class="fas fa-suitcase"></i> My Trip</a></li>
+            <li><a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </div>
+    <script src="https://kit.fontawesome.com/your_fontawesome_kit.js" crossorigin="anonymous"></script>
+</body>
+</html>

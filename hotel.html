@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotels in {{ destination }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Merriweather', serif;
+            background: linear-gradient(160deg, #ffe0b2, #ffcc80);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #444;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            width: 90%;
+            max-width: 700px;
+            text-align: center;
+        }
+        h1 {
+            color: #e65100;
+            font-size: 2.8em;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+        }
+        h1::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -8px;
+            width: 60px;
+            height: 4px;
+            background-color: #ff9800;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+        li {
+            background-color: #fffde7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid transparent; /* Initially no border */
+            transition: border-color 0.3s ease;
+        }
+        li.selected {
+            border-color: #ff9800; /* Highlight selected hotel */
+        }
+        li span {
+            flex-grow: 1;
+            text-align: left;
+        }
+        li button {
+            background-color: #ff9800;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border: none;
+            border-radius: 6px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+        }
+        li button:hover {
+            background-color: #f57c00;
+            transform: translateY(-2px);
+        }
+        h2 {
+            color: #e65100;
+            font-size: 2em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ffe0b2;
+            padding-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+            text-align: left;
+        }
+        input[type="number"],
+        select {
+            width: calc(100% - 22px);
+            padding: 12px;
+            border: 1px solid #ffcc80;
+            border-radius: 6px;
+            font-size: 1em;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        input[type="number"]:focus,
+        select:focus {
+            border-color: #ff9800;
+            outline: none;
+            box-shadow: 0 0 8px rgba(255, 152, 0, 0.2);
+        }
+        select option {
+            padding: 8px;
+            font-size: 1em;
+        }
+        button[type="submit"] {
+            background-color: #ff9800;
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        button[type="submit"]:hover {
+            background-color: #f57c00;
+            transform: translateY(-2px);
+        }
+        p {
+            font-size: 1.1em;
+            margin-top: 20px;
+            color: #555;
+        }
+        p a {
+            color: #ff9800;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        p a:hover {
+            color: #f57c00;
+        }
+        .no-hotels {
+            font-size: 1.2em;
+            color: #e65100;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hotels available ({{ destination }})</h1>
+        {% if hotels %}
+            <form method="POST">
+                <ul>
+                    {% for hotel in hotels %}
+                    <li>
+                        <span>{{ hotel.name }} ({{ '★' * hotel.stars }} {{ '☆' * (5 - hotel.stars) }})</span>
+                        <button type="button" onclick="selectHotel('{{ hotel.name }}')">Select</button>
+                        <input type="hidden" name="selected_hotel" id="selected_hotel">
+                    </li>
+                    {% endfor %}
+                </ul>
+                <h2>Your Booking Preferences</h2>
+                <label for="num_rooms"><i class="fas fa-bed"></i> Number of Rooms:</label><br>
+                <input type="number" id="num_rooms" name="num_rooms" min="1" value="1" required><br><br>
+
+                <label for="room_type"><i class="fas fa-door-open"></i> Room Type:</label><br>
+                <select id="room_type" name="room_type">
+                    <option value="single">Single Bedroom</option>
+                    <option value="double">Double Bedroom</option>
+                    <option value="suite">Suite</option>
+                    <option value="family">Family Room</option>
+                </select><br><br>
+
+                <label for="num_guests"><i class="fas fa-users"></i> Number of Guests:</label><br>
+                <input type="number" id="num_guests" name="num_guests" min="1" value="1" required><br><br>
+
+                <button type="submit"><i class="fas fa-check-circle"></i> Book This Hotel</button>
+            </form>
+        {% else %}
+            <p class="no-hotels"><i class="fas fa-exclamation-triangle"></i> No hotels currently available in {{ destination }}. Please try a different location or date.</p>
+        {% endif %}
+        <p><a href="{{ url_for('home') }}"><i class="fas fa-arrow-left"></i> Back to Home</a></p>
+    </div>
+    <script>
+        function selectHotel(hotelName) {
+            document.getElementById('selected_hotel').value = hotelName;
+            // You might want to visually indicate which hotel is selected here
+        }
+    </script>
+    <script src="https://kit.fontawesome.com/your_fontawesome_kit.js" crossorigin="anonymous"></script>
+</body>
+</html>

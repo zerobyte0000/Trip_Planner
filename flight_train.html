@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embark on Your Next Adventure</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e0f7fa, #cdd8f1);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            width: 90%;
+            max-width: 700px;
+            text-align: center;
+        }
+        h1 {
+            color: #37474f;
+            font-size: 2.8em;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+        }
+        h1::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -8px;
+            width: 60px;
+            height: 4px;
+            background-color: #03a9f4;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        .section {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08);
+            text-align: left;
+        }
+        .section h2 {
+            color: #03a9f4;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #e1f5fe;
+            padding-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #546e7a;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: calc(100% - 22px);
+            padding: 12px;
+            border: 1px solid #cfd8dc;
+            border-radius: 8px;
+            font-size: 1em;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        select:focus {
+            border-color: #03a9f4;
+            outline: none;
+            box-shadow: 0 0 8px rgba(3, 169, 244, 0.2);
+        }
+        select option {
+            padding: 8px;
+            font-size: 1em;
+        }
+        input[type="submit"] {
+            background-color: #03a9f4;
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 15px;
+        }
+        input[type="submit"]:hover {
+            background-color: #0288d1;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Plan Your Next Trip</h1>
+
+        <div class="section">
+            <h2><i class="fas fa-plane"></i> Book Flight</h2>
+            <form method="POST">
+                <label for="flight_start_place"><i class="fas fa-map-marker-alt"></i> Starting Place:</label><br>
+                <input type="text" id="flight_start_place" name="start_place" placeholder="Enter city or airport" required><br><br>
+                <label for="flight_destination"><i class="fas fa-flag-checkered"></i> Destination:</label><br>
+                <input type="text" id="flight_destination" name="destination" placeholder="Where are you going?" required><br><br>
+                <label for="flight_travel_date"><i class="far fa-calendar-alt"></i> Date of Travel:</label><br>
+                <input type="date" id="flight_travel_date" name="travel_date" required><br><br>
+                <label for="flight_adults"><i class="fas fa-user"></i> Adults:</label><br>
+                <select id="flight_adults" name="adults">
+                    {% for i in range(10) %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select><br><br>
+                <label for="flight_seniors"><i class="fas fa-user-tie"></i> Senior Citizens:</label><br>
+                <select id="flight_seniors" name="seniors">
+                    {% for i in range(10) %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select><br><br>
+                <label for="flight_children"><i class="fas fa-child"></i> Children:</label><br>
+                <select id="flight_children" name="children">
+                    {% for i in range(10) %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select><br><br>
+                <input type="submit" value="Find Flights">
+            </form>
+        </div>
+
+        <div class="section">
+            <h2><i class="fas fa-train"></i> Book Train</h2>
+            <form method="POST">
+                <label for="train_start_place"><i class="fas fa-map-marker-alt"></i> Starting Place:</label><br>
+                <input type="text" id="train_start_place" name="start_place" placeholder="Enter station or city" required><br><br>
+                <label for="train_destination"><i class="fas fa-flag-checkered"></i> Destination:</label><br>
+                <input type="text" id="train_destination" name="destination" placeholder="Your destination station" required><br><br>
+                <label for="train_travel_date"><i class="far fa-calendar-alt"></i> Date of Travel:</label><br>
+                <input type="date" id="train_travel_date" name="travel_date" required><br><br>
+                <label for="train_adults"><i class="fas fa-user"></i> Adults:</label><br>
+                <select id="train_adults" name="adults">
+                    {% for i in range(10) %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select><br><br>
+                <label for="train_seniors"><i class="fas fa-user-tie"></i> Senior Citizens:</label><br>
+                <select id="train_seniors" name="seniors">
+                    {% for i in range(10) %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select><br><br>
+                <label for="train_children"><i class="fas fa-child"></i> Children:</label><br>
+                <select id="train_children" name="children">
+                    {% for i in range(10) %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select><br><br>
+                <input type="submit" value="Find Trains">
+            </form>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/your_fontawesome_kit.js" crossorigin="anonymous"></script>
+</body>
+</html>

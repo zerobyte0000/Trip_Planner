@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Craft Your Perfect Trip Budget</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(120deg, #f0f4c3, #dcedc8);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+        h1 {
+            color: #558b2f;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            letter-spacing: 0.5px;
+            position: relative;
+            display: inline-block;
+        }
+        h1::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -6px;
+            width: 50px;
+            height: 3px;
+            background-color: #8bc34a;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: bold;
+            text-align: left;
+        }
+        input[type="number"],
+        input[type="date"] {
+            width: calc(100% - 22px);
+            padding: 12px;
+            border: 1px solid #c8e6c9;
+            border-radius: 6px;
+            font-size: 1em;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        input[type="number"]:focus,
+        input[type="date"]:focus {
+            border-color: #8bc34a;
+            outline: none;
+            box-shadow: 0 0 8px rgba(139, 195, 74, 0.2);
+        }
+        input[type="submit"] {
+            background-color: #8bc34a;
+            color: white;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        input[type="submit"]:hover {
+            background-color: #689f38;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Budget Your Adventure</h1>
+        <form method="POST">
+            <label for="total_budget"><i class="fas fa-coins"></i> Total Budget:</label><br>
+            <input type="number" id="total_budget" name="total_budget" placeholder="Enter your total budget" required><br><br>
+            <label for="num_days"><i class="far fa-calendar-alt"></i> Number of Days:</label><br>
+            <input type="number" id="num_days" name="num_days" placeholder="How many days will you travel?" required><br><br>
+            <label for="start_date"><i class="fas fa-calendar-plus"></i> Start Date:</label><br>
+            <input type="date" id="start_date" name="start_date" required><br><br>
+            <label for="end_date"><i class="fas fa-calendar-minus"></i> End Date:</label><br>
+            <input type="date" id="end_date" name="end_date" required><br><br>
+            <input type="submit" value="Plan Further">
+        </form>
+    </div>
+    <script src="https://kit.fontawesome.com/your_fontawesome_kit.js" crossorigin="anonymous"></script>
+</body>
+</html>
